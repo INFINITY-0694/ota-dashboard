@@ -23,7 +23,7 @@ export default async function handler(request, response) {
     const { fields, files } = await parseForm(request);
     const version = Array.isArray(fields.version) ? fields.version[0] : fields.version;
     const firmware = Array.isArray(files.firmware) ? files.firmware[0] : files.firmware;
-    if (!/^\\d+\\.\\d+\\.\\d+$/.test(version || '') || !firmware?.filepath) {
+    if (!/^\d+\.\d+\.\d+$/.test(version || '') || !firmware?.filepath) {
       return response.status(400).json({ error: 'Version and firmware binary are required' });
     }
     const bytes = await readFile(firmware.filepath);
